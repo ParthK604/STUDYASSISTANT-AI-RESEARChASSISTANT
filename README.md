@@ -67,3 +67,5 @@ studyagent/
 ├── .env
 ├── requirements.txt
 └── README.md
+
+it also has a requirements.txt
