@@ -63,27 +63,3 @@ Answer:
         return response.content
 
 
-if __name__ == "__main__":
-
-    from backend.rag.embeddings import EmbeddingService
-    from backend.rag.retriever import RAGRetriever
-    from backend.rag.vectorstore import PineconeService
-
-    pinecone_service = PineconeService()
-
-    embedding_service = EmbeddingService()
-
-    retriever = RAGRetriever(
-        pinecone_service=pinecone_service,
-        embedding_service=embedding_service,
-    )
-
-    llm_service = LLMService()
-
-    answer = llm_service.generate_answer(
-        query="Traditional telecommunication information",
-        retriever=retriever,
-        user_id="default_user",
-    )
-
-    print(answer)

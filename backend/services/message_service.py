@@ -48,3 +48,29 @@ async def delete_messages_by_user(
     )
 
     return result.deleted_count > 0
+
+async def get_recent_messages_by_user(
+    user_id: str,
+    limit: int = 10,
+) -> List[dict]:
+
+    collection = db["messages"]
+
+    cursor = (
+        collection.find(
+            {"user_id": user_id}
+        )
+        .sort("created_at", -1)
+        .limit(limit)
+    )
+
+    messages = await cursor.to_list(
+        length=limit
+    )
+
+    messages.reverse()
+
+    for message in messages:
+        message["_id"] = str(message["_id"])
+
+    return messages
