@@ -9,7 +9,7 @@ from backend.services.message_service import (
     get_recent_messages_by_user,
 )
 from backend.models.message import Message
-from backend.guardrails.guardrail_service import (validate_agent_input,validate_agent_output,validate_iterations)
+
 
 
 async def run_agent(
@@ -17,12 +17,7 @@ async def run_agent(
     query: str,
 ) -> dict:
     
-    error = validate_agent_input(query)
-
-    if error:
-        return {
-            "error": error
-        }
+    
 
     previous_messages = (
         await get_recent_messages_by_user(
@@ -64,10 +59,7 @@ async def run_agent(
         "iterations": 0,
     }
 
-    if not validate_iterations(state["iterations"]):
-        return {
-            "error": "Maximum agent iterations exceeded."
-        }
+    
 
     result = app.invoke(state)
 
@@ -75,14 +67,7 @@ async def run_agent(
         result["messages"][-1].content
     )
 
-    error = validate_agent_output(
-        final_answer
-    )
 
-    if error:
-        return {
-            "error": error
-        }
 
     await create_message(
         Message(
