@@ -43,9 +43,9 @@ studyagent/
 │   │     ├── validators.py
 │   │     └── output_filter.py
 │   │
-│   ├── evaluation/
-│   │     ├── dataset.json
-│   │     └── evaluator.py
+│   ├
+│   │     
+│   │     
 │   │
 │   ├── services/
 │   │     ├── upload_service.py
